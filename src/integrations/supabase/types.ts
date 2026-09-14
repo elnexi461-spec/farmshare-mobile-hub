@@ -319,50 +319,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      accrue_daily_income: { Args: never; Returns: number }
-      collect_income: { Args: never; Returns: number }
-      ensure_my_profile: {
-        Args: {
-          _display_name?: string
-          _email: string
-          _phone?: string
-          _referral_code?: string
-        }
-        Returns: {
-          account_balance: number
-          available_points: number
-          avatar_animal: string
-          created_at: string
-          deposit_balance: number
-          display_name: string | null
-          email: string | null
-          id: string
-          is_active: boolean
-          phone: string | null
-          referral_code: string
-          referred_by: string | null
-          unclaimed_income: number
-          updated_at: string
-        }
-        SetofOptions: {
-          from: "*"
-          to: "profiles"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      purchase_package: { Args: { _package_id: number }; Returns: string }
-      request_withdrawal: {
-        Args: { _amount: number; _phone: string }
-        Returns: string
-      }
+      [_ in never]: never
     }
     Enums: {
       app_role: "admin" | "user"
