@@ -319,7 +319,82 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      srv_collect_income: { Args: { _user_id: string }; Returns: number }
+      srv_complete_mpesa_deposit: {
+        Args: {
+          _amount: number
+          _checkout_request_id: string
+          _metadata?: Json
+          _phone: string
+          _receipt: string
+        }
+        Returns: string
+      }
+      srv_ensure_my_profile: {
+        Args: {
+          _display_name?: string
+          _email: string
+          _phone?: string
+          _referral_code?: string
+          _user_id: string
+        }
+        Returns: {
+          account_balance: number
+          available_points: number
+          avatar_animal: string
+          created_at: string
+          deposit_balance: number
+          display_name: string | null
+          email: string | null
+          id: string
+          is_active: boolean
+          phone: string | null
+          referral_code: string
+          referred_by: string | null
+          unclaimed_income: number
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "profiles"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      srv_fail_mpesa_deposit: {
+        Args: {
+          _checkout_request_id: string
+          _metadata?: Json
+          _reason: string
+        }
+        Returns: undefined
+      }
+      srv_purchase_package: {
+        Args: { _package_id: number; _user_id: string }
+        Returns: string
+      }
+      srv_request_withdrawal: {
+        Args: { _amount: number; _phone: string; _user_id: string }
+        Returns: string
+      }
+      srv_review_deposit: {
+        Args: {
+          _admin_id: string
+          _approve: boolean
+          _reason?: string
+          _transaction_id: string
+        }
+        Returns: string
+      }
+      srv_review_withdrawal: {
+        Args: {
+          _admin_id: string
+          _approve: boolean
+          _reason?: string
+          _transaction_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "user"
