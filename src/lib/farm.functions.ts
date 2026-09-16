@@ -26,6 +26,15 @@ export const getFarmData = createServerFn({ method: 'GET' })
     return { profile: profile.data, packages: packages.data ?? [], investments: investments.data ?? [], transactions: transactions.data ?? [], commissions: commissions.data ?? [], isAdmin: roles.data?.some((r) => r.role === 'admin') ?? false }
   })
 
+export const getMyRole = createServerFn({ method: 'GET' })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase.from('user_roles').select('role').eq('user_id', context.userId)
+    if (error) throw new Error(error.message)
+    return { isAdmin: data?.some((r) => r.role === 'admin') ?? false }
+  })
+
+
 export const createProfile = createServerFn({ method: 'POST' })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => z.object({ email: z.string().email(), phone: phoneSchema, displayName: z.string().min(2).max(80), referralCode: z.string().max(20).optional() }).parse(input))

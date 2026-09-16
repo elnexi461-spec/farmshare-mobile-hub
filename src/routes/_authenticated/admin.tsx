@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useServerFn } from '@tanstack/react-start'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -40,7 +40,7 @@ function Admin() {
 
   if (q.isLoading) return <PageLoading />
   if (q.error) return <PageError message={q.error.message} />
-  if (!q.data?.isAdmin) throw redirect({ to: '/dashboard' })
+  if (!q.data?.isAdmin) return <PageError message="This area is for administrators only." />
   const d = q.data
 
   async function act(id: string, approve: boolean) {
